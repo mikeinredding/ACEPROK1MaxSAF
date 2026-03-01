@@ -1,6 +1,6 @@
-# ACE PRO K1 Max with CFS upgrade Kit - Anycubic Color Engine Pro Driver for K1 Max, K1 series and Klipper
+# ACE PRO K1 Max with CFS upgrade Kit - Anycubic Color Engine Pro Driver for K1 Max, K1 series running SimpleAF
 
-A comprehensive Klipper driver for the Anycubic Color Engine Pro multi-material unit, optimized for K1 Max with CFS upgrade kit and other Klipper-based 3D printers.
+A comprehensive Klipper driver for the Anycubic Color Engine Pro multi-material unit, optimized for K1 Max with CFS upgrade kit running SimpleAF
 
 ## NOTE: DO NOT INSTALL THE CFS FIRMWARE THAT COMES WITH THE KIT.  THIS HAS NOT BEEN TESTED WITH THAT FIRMWARE.  ONLY USE THE NON-CFS FIRMWARE.
 

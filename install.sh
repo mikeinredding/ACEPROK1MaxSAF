@@ -1,30 +1,30 @@
 #!/bin/sh
 
-# Версия скрипта
+# Script version
 VERSION="1.0"
 
-# Определение архитектуры
+# Definition of Architecture
 IS_MIPS=0
 if echo "$(uname -m)" | grep -q "mips"; then
    IS_MIPS=1
 fi
 
-# Пути по умолчанию
+# Default paths
 KLIPPER_HOME="${HOME}/klipper"
 KLIPPER_CONFIG_HOME="${HOME}/printer_data/config"
 MOONRAKER_CONFIG_DIR="${HOME}/printer_data/config"
 SRCDIR="$PWD"
 KLIPPER_ENV="${HOME}/klippy-env/bin"
 
-# Для MIPS систем
+# For MIPS systems
 if [ "$IS_MIPS" -eq 1 ]; then
-    KLIPPER_HOME="/usr/share/klipper"
+    KLIPPER_HOME="/usr/data/klipper"
     KLIPPER_CONFIG_HOME="/usr/data/printer_data/config"
     MOONRAKER_CONFIG_DIR="/usr/data/printer_data/config"
     KLIPPER_ENV="/usr/bin"
 fi
 
-# Имена сервисов
+# Service names
 KLIPPER_SERVICE="klipper"
 MOONRAKER_SERVICE="moonraker"
 
@@ -42,7 +42,7 @@ show_version() {
     exit 0
 }
 
-# Парсинг аргументов
+# Parsing arguments
 UNINSTALL=0
 while getopts "uhv" arg; do
    case $arg in
@@ -157,20 +157,21 @@ copy_config() {
     fi
 }
 
-install_requirements() {
-    echo -n "Installing requirements... "
-    if [ ! -f "${SRCDIR}/requirements.txt" ]; then
-        echo "[SKIPPED] (requirements.txt not found)"
-        return
-    fi
+# not needed for simpleAF
+# #install_requirements() {
+# #    echo -n "Installing requirements... "
+#     if [ ! -f "${SRCDIR}/requirements.txt" ]; then
+#         echo "[SKIPPED] (requirements.txt not found)"
+#         return
+#     fi
 
-    if "${KLIPPER_ENV}/pip3" install -r "${SRCDIR}/requirements.txt"; then
-        echo "[OK]"
-    else
-        echo "[FAILED]"
-        exit 1
-    fi
-}
+#     if "${KLIPPER_ENV}/pip3" install -r "${SRCDIR}/requirements.txt"; then
+#         echo "[OK]"
+#     else
+#         echo "[FAILED]"
+#         exit 1
+#     fi
+#}
 
 uninstall() {
     echo -n "Uninstalling ACEPROK1Max... "
@@ -200,8 +201,8 @@ uninstall() {
         echo "[SKIPPED] (no ACEPROK1Max files found)"
     else
         echo "Note: You need to manually remove:"
-        echo "1. [update_manager ACEPROK1Max] section from moonraker.conf"
-        echo "2. All ACEPROK1Max-related configurations from your printer.cfg"
+       #echo "1. [update_manager ACEPROK1Max] section from moonraker.conf"
+        echo " All ACEPROK1Max-related configurations from your printer.cfg"
     fi
 }
 
@@ -238,27 +239,28 @@ start_service() {
     fi
 }
 
-add_updater() {
-    echo -n "Adding update manager to moonraker.conf... "
-    if grep -q "\[update_manager ACEPROK1Max\]" "${MOONRAKER_CONFIG_DIR}/moonraker.conf"; then
-        echo "[SKIPPED] (already exists)"
-        return
-    fi
+# not implementing updater for now.
+# add_updater() {
+#     echo -n "Adding update manager to moonraker.conf... "
+#     if grep -q "\[update_manager ACEPROK1Max\]" "${MOONRAKER_CONFIG_DIR}/moonraker.conf"; then
+#         echo "[SKIPPED] (already exists)"
+#         return
+#     fi
 
-    cat << EOF >> "${MOONRAKER_CONFIG_DIR}/moonraker.conf"
+#     cat << EOF >> "${MOONRAKER_CONFIG_DIR}/moonraker.conf"
 
-[update_manager ACEPROK1Max]
-type: git_repo
-path: ${SRCDIR}
-primary_branch: master
-origin: https://github.com/swilsonnc/ACEPROK1Max.git
-managed_services: klipper
-EOF
+# [update_manager ACEPROK1Max]
+# type: git_repo
+# path: ${SRCDIR}
+# primary_branch: master
+# origin: https://github.com/swilsonnc/ACEPROK1Max.git
+# managed_services: klipper
+# EOF
 
-    echo "[OK]"
-}
+#     echo "[OK]"
+# }
 
-# Основной процесс
+# Main process
 verify_ready
 check_folders
 check_service "$KLIPPER_SERVICE" || exit 1
@@ -269,11 +271,11 @@ stop_service "$KLIPPER_SERVICE"
 if [ "$UNINSTALL" -eq 1 ]; then
     uninstall
 else
-    install_requirements
+    #install_requirements
     link_extension
     link_temperature_sensor
     copy_config
-    add_updater
+    #add_updater
     restart_service "$MOONRAKER_SERVICE"
 fi
 
