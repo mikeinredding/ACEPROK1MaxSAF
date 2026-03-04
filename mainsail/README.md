@@ -1,5 +1,6 @@
 <picture>
-  <a href="../img/mainsail.png" target=_new><img src="../img/mainsail.png" alt="" style="width:640px;"></a>
+  <a href="../img/mainsail.png" target=_new><img src="../img/mainsail.png" alt="" style="width:480px;"></a>
+  <a href="../img/mainsail-printing.png" target=_new><img src="../img/mainsail-printing.png" alt="" style="width:480px;"></a>
 </picture>
 
 Make a backup of your current mainsail directory.
