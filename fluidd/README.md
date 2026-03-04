@@ -1,5 +1,5 @@
 <picture>
-  <a href="../img/fluidd.png" target=_new><img src="../img/fluidd.png" alt="" style="width:640px;"></a>
+  <a href="../img/fluidd.png" target=_new><img src="../img/fluidd.png" alt="" style="width:480px;"></a>
   <a href="../img/fluidd_printing.png" target=_new><img src="../img/fluidd_printing.png" alt="" style="width:512px;"></a>
 </picture>
 
