@@ -13,7 +13,7 @@ fi
 KLIPPER_HOME="${HOME}/klipper"
 KLIPPER_CONFIG_HOME="${HOME}/printer_data/config"
 MOONRAKER_CONFIG_DIR="${HOME}/printer_data/config"
-SRCDIR="$PWD"
+SRCDIR="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 KLIPPER_ENV="${HOME}/klippy-env/bin"
 
 # For MIPS systems
